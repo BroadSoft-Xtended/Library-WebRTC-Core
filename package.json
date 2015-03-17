@@ -16,7 +16,7 @@
     "jquery.cookie": "1.4.1",
     "stacktrace-js": "0.6.4",
     "event-emitter": "0.3.3",
-    "cookie-cutter": "~0.1.1"
+    "exsip": "broadsoftxtended/ExSIP.git#cjs"
   },
   "devDependencies": {
     "glob-cli": "^1.0.0"
