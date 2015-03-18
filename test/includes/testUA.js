@@ -1,5 +1,3 @@
-var ExSIP = require('../../lib/app').exsip;
-
 module.exports = {
   createModelAndView: function(name, lib) {
     this.create(name, {lib: lib, constructor: lib.model});
@@ -20,8 +18,8 @@ module.exports = {
     };
     Object.defineProperties(global, properties);
 
-    var options = {id: id, instancesObj: instancesOb, require('../../')};
     var core = require('../../lib/app');
+    var options = core.utils.extend({}, core.defaults, {id: id, instancesObj: instancesObj});
     options.dependencies = {
         core: core
     };
@@ -29,34 +27,6 @@ module.exports = {
       options.dependencies[name.replace(/view/i, '')] = createOptions.lib;
     }
     core.factory(options)(createOptions.constructor);
-  },
-  create: function(name) {
-    var properties = {};
-    var id = 'test'
-    var instancesObj = 'bdsft_client_instances';
-    properties[name] = {
-      get: function() {
-        return global.[instancesObj].[name+'_'+id];
-      }
-    };
-    properties[name+'view'] = {
-      get: function() {
-        return global.[instancesObj].[name+'view_'+id];
-      }
-    };
-    Object.defineProperties(global, properties);
-
-    var view = require("views/"+name);
-    var model = require("models/"+name);
-    options.dependencies = {
-        id: id,
-        instancesObj: instancesObj,
-        core: require('../../lib/app'),
-        authenticationView: view,
-        authentication: model
-    };
-    core.factory(options)(view);
-    core.factory(options)(model);
   },
   isVisible: function(element, visible) {
     // fix caching bug with jsdom and css() by calling _clearMemoizedQueries();
@@ -146,7 +116,7 @@ module.exports = {
   },
 
   endCall: function() {
-    sipstack.activeSession.status = ExSIP.RTCSession.C.STATUS_TERMINATED;
+    sipstack.activeSession.status = require('../../lib/app').exsip.RTCSession.C.STATUS_TERMINATED;
     sipstack.activeSession.emit('ended', sipstack.activeSession);
   },
 
@@ -193,7 +163,7 @@ module.exports = {
     var session = this.createSession();
     session.id = "incomingid";
     session.direction = "incoming";
-    session.status = ExSIP.RTCSession.C.STATUS_WAITING_FOR_ANSWER;
+    session.status = require('../../lib/app').exsip.RTCSession.C.STATUS_WAITING_FOR_ANSWER;
     session.remote_identity = {
       uri: "incoming_remote_uri"
     };
@@ -201,7 +171,7 @@ module.exports = {
   },
 
   createSession: function() {
-    var session = new ExSIP.RTCSession(sipstack.ua);
+    var session = new require('../../lib/app').exsip.RTCSession(sipstack.ua);
     session.hold = function(success) {
       session.held();
       if (success) {
@@ -257,6 +227,7 @@ module.exports = {
 
   mockWebRTC: function() {
     var self = this;
+    var ExSIP = require('../../lib/app').exsip;
     ExSIP.WebRTC.RTCPeerConnection = function() {
       return {
         localDescription: null,
