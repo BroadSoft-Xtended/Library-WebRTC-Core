@@ -1,6 +1,63 @@
 var ExSIP = require('../../lib/app').exsip;
 
 module.exports = {
+  createModelAndView: function(name, lib) {
+    this.create(name, {lib: lib, constructor: lib.model});
+    this.create(name+'view', {lib: lib, constructor: lib.view});
+  },
+  createCore: function(name) {
+    this.create(name, {constructor: require('../..')[name]});
+  },
+  create: function(name, createOptions) {
+    createOptions = createOptions || {};
+    var properties = {};
+    var id = 'test'
+    var instancesObj = 'bdsft_client_instances';
+    properties[name] = {
+      get: function() {
+        return global[instancesObj][name+'_'+id];
+      }
+    };
+    Object.defineProperties(global, properties);
+
+    var options = {id: id, instancesObj: instancesOb, require('../../')};
+    var core = require('../../lib/app');
+    options.dependencies = {
+        core: core
+    };
+    if(createOptions.lib) {
+      options.dependencies[name.replace(/view/i, '')] = createOptions.lib;
+    }
+    core.factory(options)(createOptions.constructor);
+  },
+  create: function(name) {
+    var properties = {};
+    var id = 'test'
+    var instancesObj = 'bdsft_client_instances';
+    properties[name] = {
+      get: function() {
+        return global.[instancesObj].[name+'_'+id];
+      }
+    };
+    properties[name+'view'] = {
+      get: function() {
+        return global.[instancesObj].[name+'view_'+id];
+      }
+    };
+    Object.defineProperties(global, properties);
+
+    var view = require("views/"+name);
+    var model = require("models/"+name);
+    options.dependencies = {
+        id: id,
+        instancesObj: instancesObj,
+        core: require('../../lib/app'),
+        authenticationView: view,
+        authentication: model
+    };
+    core.factory(options)(view);
+    core.factory(options)(model);
+  },
   isVisible: function(element, visible) {
     // fix caching bug with jsdom and css() by calling _clearMemoizedQueries();
     element[0]._clearMemoizedQueries();
