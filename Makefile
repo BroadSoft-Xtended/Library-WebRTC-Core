@@ -1,21 +1,13 @@
 SHELL := /bin/bash
-PATH := node_modules/.bin:$(PATH)
 
-JS_FILES := $(shell glob-cli "lib/**/*.js")
+MEDIA_FILES := $(shell glob-cli "media/**/*")
 
+all: node_modules/bdsft-webrtc-media
 
-all: build
+## Create symlinks ##################################################################
+node_modules/bdsft-webrtc-media: js/media.js
+	ln -sf ../js/media.js node_modules/bdsft-webrtc-media
 
-build: webrtc-core.js
-
-
-
-## Build browserified files #######################################################
-TRANSFORMS := -t brfs
-
-### Without script tag loader
-webrtc-core.js: webrtc-core.dev.js
-	uglifyjs $< > build/$@
-
-webrtc-core.dev.js: $(JS_FILES)
-	browserify $(TRANSFORMS) lib/app.js > build/$@
+## Compile styles ##################################################################
+js/media.js: $(MEDIA_FILES)
+	scripts/encode-media media js/media.js
