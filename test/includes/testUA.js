@@ -2,9 +2,9 @@ var id = 'test'
 var instancesObj = 'bdsft_client_instances';
 
 module.exports = {
-  createModelAndView: function(name, lib) {
-    this.create(name, {lib: lib, constructor: lib.model});
-    this.create(name+'view', {lib: lib, constructor: lib.view});
+  createModelAndView: function(name, dependencies) {
+    this.create(name, {dependencies: dependencies, constructor: dependencies[name].model});
+    this.create(name+'view', {dependencies: dependencies, constructor: dependencies[name].view});
   },
   createCore: function(name, config) {
     this.create(name, {constructor: require('../..')[name], config: config});
@@ -21,9 +21,8 @@ module.exports = {
 
     var core = require('../../lib/app');
     var options = core.utils.extend({}, core.defaults, {id: id, instancesObj: instancesObj}, createOptions.config);
-    options.dependencies = {
-        core: core
-    };
+    options.dependencies = createOptions.dependencies || {};
+    options.dependencies.core = core;
     if(createOptions.lib) {
       options.dependencies[name.replace(/view/i, '')] = createOptions.lib;
     }
