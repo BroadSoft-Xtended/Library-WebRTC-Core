@@ -1,30 +1,34 @@
+var id = 'test'
+var instancesObj = 'bdsft_client_instances';
+
 module.exports = {
   createModelAndView: function(name, lib) {
     this.create(name, {lib: lib, constructor: lib.model});
     this.create(name+'view', {lib: lib, constructor: lib.view});
   },
-  createCore: function(name) {
-    this.create(name, {constructor: require('../..')[name]});
+  createCore: function(name, config) {
+    this.create(name, {constructor: require('../..')[name], config: config});
   },
   create: function(name, createOptions) {
     createOptions = createOptions || {};
-    var properties = {};
-    var id = 'test'
-    var instancesObj = 'bdsft_client_instances';
-    properties[name] = {
-      get: function() {
-        return global[instancesObj][name+'_'+id];
-      }
-    };
-    Object.defineProperties(global, properties);
+    if(!global.hasOwnProperty(name)) {
+      Object.defineProperty(global, name, {
+        get: function() {
+          return global[instancesObj][name+'_'+id];
+        }
+      });
+    }
 
     var core = require('../../lib/app');
-    var options = core.utils.extend({}, core.defaults, {id: id, instancesObj: instancesObj});
+    var options = core.utils.extend({}, core.defaults, {id: id, instancesObj: instancesObj}, createOptions.config);
     options.dependencies = {
         core: core
     };
     if(createOptions.lib) {
       options.dependencies[name.replace(/view/i, '')] = createOptions.lib;
+    }
+    if(global[instancesObj] && global[instancesObj][name+'_'+id]) {
+      delete global[instancesObj][name+'_'+id];
     }
     core.factory(options)(createOptions.constructor);
   },

@@ -19,7 +19,12 @@
     "exsip": "broadsoftxtended/ExSIP.git#cjs"
   },
   "devDependencies": {
-    "glob-cli": "^1.0.0"
+    "glob-cli": "^1.0.0",
+    "mocha": "2.1.0",
+    "jsdom": "3.1.0",
+    "mocha-jsdom": "0.2.0",
+    "expect": "1.6.0",
+    "mocha-bamboo-reporter": "1.0.6"
   },
   "author": "",
   "license": "ISC"
