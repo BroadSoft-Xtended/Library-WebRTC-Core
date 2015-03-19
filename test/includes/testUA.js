@@ -2,6 +2,33 @@ var id = 'test'
 var instancesObj = 'bdsft_client_instances';
 
 module.exports = {
+  setupLocalStorage: function(){
+    localStorage = {};
+    var localStorageMethods = 5;
+    localStorage.setItem = function (key, val) {
+         this[key] = val + '';
+    }
+    localStorage.getItem = function (key) {
+        return this[key];
+    }
+    localStorage.key = function (index) {
+        return Object.keys(this)[index + localStorageMethods];
+    }
+    localStorage.removeItem = function (key) {
+      delete this[key];
+    };
+    localStorage.clear = function () {
+      for(var i = this.length; i >= 0; i--) {
+        var key = this.key(i);
+        this.removeItem(key);
+      }
+    }
+    Object.defineProperty(localStorage, 'length', {
+        get: function () { 
+          return Object.keys(this).length - localStorageMethods; 
+        }
+    });
+  },
   createModelAndView: function(name, dependencies) {
     this.create(name, {dependencies: dependencies, constructor: dependencies[name].model});
     this.create(name+'view', {dependencies: dependencies, constructor: dependencies[name].view});
@@ -120,8 +147,10 @@ module.exports = {
 
   endCall: function() {
     var ExSIP = require('../../lib/app').exsip;
-    sipstack.activeSession.status = ExSIP.RTCSession.C.STATUS_TERMINATED;
-    sipstack.activeSession.emit('ended', sipstack.activeSession);
+    if(sipstack.activeSession) {
+      sipstack.activeSession.status = ExSIP.RTCSession.C.STATUS_TERMINATED;
+      sipstack.activeSession.emit('ended', sipstack.activeSession);      
+    }
   },
 
   startCall: function(session) {
