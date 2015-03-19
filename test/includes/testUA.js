@@ -119,7 +119,8 @@ module.exports = {
   },
 
   endCall: function() {
-    sipstack.activeSession.status = require('../../lib/app').exsip.RTCSession.C.STATUS_TERMINATED;
+    var ExSIP = require('../../lib/app').exsip;
+    sipstack.activeSession.status = ExSIP.RTCSession.C.STATUS_TERMINATED;
     sipstack.activeSession.emit('ended', sipstack.activeSession);
   },
 
@@ -163,10 +164,11 @@ module.exports = {
   },
 
   incomingSession: function() {
+    var ExSIP = require('../../lib/app').exsip;
     var session = this.createSession();
     session.id = "incomingid";
     session.direction = "incoming";
-    session.status = require('../../lib/app').exsip.RTCSession.C.STATUS_WAITING_FOR_ANSWER;
+    session.status = ExSIP.RTCSession.C.STATUS_WAITING_FOR_ANSWER;
     session.remote_identity = {
       uri: "incoming_remote_uri"
     };
@@ -174,7 +176,8 @@ module.exports = {
   },
 
   createSession: function() {
-    var session = new require('../../lib/app').exsip.RTCSession(sipstack.ua);
+    var ExSIP = require('../../lib/app').exsip
+    var session = new ExSIP.RTCSession(sipstack.ua);
     session.hold = function(success) {
       session.held();
       if (success) {
