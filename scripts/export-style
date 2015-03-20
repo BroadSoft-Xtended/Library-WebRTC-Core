@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
 var fs = require('fs');
+var path = require('path');
 
 module.exports = function(infile, outfile, cb) {
+	var name = path.basename(infile).match(/(.*?)\./).pop();
     var original_data = fs.readFileSync(infile, 'utf-8');
-    fs.writeFileSync(outfile, 'module.exports = ' + JSON.stringify(original_data));
+    fs.writeFileSync(outfile, 'module.exports = {' + name + ': ' + JSON.stringify(original_data)+' }');
 
     cb();
 };
