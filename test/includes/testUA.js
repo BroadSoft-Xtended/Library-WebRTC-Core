@@ -30,8 +30,12 @@ module.exports = {
     });
   },
   createModelAndView: function(name, dependencies) {
-    this.create(name, {dependencies: dependencies, constructor: dependencies[name].model});
-    this.create(name+'view', {dependencies: dependencies, constructor: dependencies[name].view});
+    if(dependencies[name].model) {
+      this.create(name, {dependencies: dependencies, constructor: dependencies[name].model});
+    }
+    if(dependencies[name].view) {
+      this.create(name+'view', {dependencies: dependencies, constructor: dependencies[name].view});
+    }
   },
   createCore: function(name, config) {
     this.create(name, {constructor: require('../..')[name], config: config});
