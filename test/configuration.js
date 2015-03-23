@@ -211,18 +211,18 @@ describe('configuration', function() {
     location.search = '?view=audioOnly';
     testUA.createCore('configuration', config);
     configuration.view = ''
-    expect(configuration.getViews()).toEqual(['audioOnly']);
+    expect(configuration.views).toEqual(['audioOnly']);
   });
   it('with configuration.view param', function() {
     location.search = '';
     configuration.view = 'audioOnly';
-    expect(configuration.getViews()).toEqual(['audioOnly']);
+    expect(configuration.views).toEqual(['audioOnly']);
   });
   it('with configuration.view param and url params', function() {
     location.search = '?view=centered';
     testUA.createCore('configuration', config);
     configuration.view = 'audioOnly';
-    expect(configuration.getViews()).toEqual(['audioOnly', 'centered']);
+    expect(configuration.views).toEqual(['audioOnly', 'centered']);
   });
   it('without color url param', function() {
     location.search = '';
