@@ -15,6 +15,11 @@ describe('configuration', function() {
     testUA.mockWebRTC();
   });
 
+  it('setResolutionDisplay', function() {
+    expect(configuration.getResolutionDisplay()).toEqual(core.constants.DEFAULT_RESOLUTION_DISPLAY);
+    configuration.displayResolution = core.constants.R_1280x720;
+    expect(configuration.getResolutionDisplay()).toEqual(core.constants.R_1280x720);
+  });
   it('enabledFeatures', function() {
     expect(configuration.enabledFeatures()).toEqual(['enableMessages',
       'enableCallControl',
@@ -201,11 +206,6 @@ describe('configuration', function() {
     testUA.createCore('configuration', config);
     expect(configuration.getClientConfigFlags()).toEqual(524287);
     location.search = '';
-  });
-  it('setResolutionDisplay', function() {
-    expect(configuration.getResolutionDisplay()).toEqual(core.constants.DEFAULT_RESOLUTION_DISPLAY);
-    configuration.displayResolution = core.constants.R_1280x720;
-    expect(configuration.getResolutionDisplay()).toEqual(core.constants.R_1280x720);
   });
   it('with view url param', function() {
     location.search = '?view=audioOnly';
