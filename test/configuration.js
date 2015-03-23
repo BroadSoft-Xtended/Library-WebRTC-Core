@@ -16,7 +16,22 @@ describe('configuration', function() {
   });
 
   it('enabledFeatures', function() {
-    expect(configuration.enabledFeatures()).toEqual([]);
+    expect(configuration.enabledFeatures()).toEqual(['enableMessages',
+      'enableCallControl',
+      'enableCallTimer',
+      'enableCallHistory',
+      'enableFullScreen',
+      'enableSelfView',
+      'enableDialpad',
+      'enableMute',
+      'enableRegistrationIcon',
+      'enableConnectionIcon',
+      'enableWindowDrag',
+      'enableAutoAcceptReInvite',
+      'enableConnectLocalMedia',
+      'enableTransfer',
+      'enableHold'
+    ]);
   });
   it('websocketsServers', function() {
     configuration.websocketsServers = [{
