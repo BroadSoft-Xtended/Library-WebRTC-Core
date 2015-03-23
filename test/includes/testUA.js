@@ -29,6 +29,15 @@ module.exports = {
         }
     });
   },
+  appendView: function(view) {
+    var div = document.createElement("div");
+    var div2 = document.createElement("div");
+    div.className = 'bdsft-client';
+    div2.className = 'client';
+    document.body.appendChild(div);
+    div.appendChild(div2);
+    div2.appendChild(view.view[0]);
+  },
   createModelAndView: function(name, dependencies) {
     if(dependencies[name].model) {
       this.create(name, {dependencies: dependencies, constructor: dependencies[name].model});
