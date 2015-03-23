@@ -15,6 +15,9 @@ describe('configuration', function() {
     testUA.mockWebRTC();
   });
 
+  it('enabledFeatures', function() {
+    expect(configuration.enabledFeatures()).toEqual([]);
+  });
   it('websocketsServers', function() {
     configuration.websocketsServers = [{
       'ws_uri': 'ws://webrtc-gw1.broadsoft.com:8060',
