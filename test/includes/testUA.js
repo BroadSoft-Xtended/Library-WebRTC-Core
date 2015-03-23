@@ -29,13 +29,17 @@ module.exports = {
         }
     });
   },
-  appendView: function(view) {
+  createClientDiv: function() {
     var div = document.createElement("div");
     var div2 = document.createElement("div");
     div.className = 'bdsft-client';
     div2.className = 'client';
     document.body.appendChild(div);
     div.appendChild(div2);
+    return div2;
+  }
+  appendView: function(view) {
+    var div2 = this.createClientDiv();
     div2.appendChild(view.view[0]);
   },
   createModelAndView: function(name, dependencies) {
