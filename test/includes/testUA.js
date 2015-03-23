@@ -37,7 +37,7 @@ module.exports = {
     document.body.appendChild(div);
     div.appendChild(div2);
     return div2;
-  }
+  },
   appendView: function(view) {
     var div2 = this.createClientDiv();
     div2.appendChild(view.view[0]);
