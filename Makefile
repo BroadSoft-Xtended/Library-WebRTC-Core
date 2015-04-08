@@ -2,13 +2,16 @@ SHELL := /bin/bash
 
 MEDIA_FILES := $(shell glob-cli "media/**/*")
 
-all: media node_modules/webrtc-core
-media: node_modules/bdsft-webrtc-media
+all: js/bdsft-webrtc-media.js node_modules/webrtc-core symlinks
+symlinks: node_modules/bdsft-webrtc-media.js
 
 ## Create symlinks ##################################################################
 node_modules/webrtc-core: 
 	ln -sf ../ node_modules/webrtc-core
 
+node_modules/bdsft-webrtc-templates.js:
+	ln -sf ../js/bdsft-webrtc-media.js node_modules/bdsft-webrtc-media.js
+
 ## Compile styles ##################################################################
-node_modules/bdsft-webrtc-media: $(MEDIA_FILES)
-	scripts/encode-media media node_modules/bdsft-webrtc-media
+js/bdsft-webrtc-media.js: $(MEDIA_FILES)
+	scripts/encode-media media js/bdsft-webrtc-media.js
