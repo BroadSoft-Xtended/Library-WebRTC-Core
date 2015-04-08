@@ -1,0 +1,23 @@
+SHELL := /bin/bash
+
+MEDIA_FILES := $(shell glob-cli "media/**/*")
+JADE_FILES := $(shell glob-cli "templates/**/*.jade")
+STYLUS_FILES := $(shell glob-cli "styles/**/*.styl")
+
+## Compile media ##################################################################
+js/media.js: $(MEDIA_FILES)
+	mkdir -p js/ && scripts/encode-media media js/media.js
+
+## Compile styles ##################################################################
+styles/css: $(STYLUS_FILES)
+	stylus --include-css styles/styles.styl -o styles
+
+styles/min.css: styles/css
+	cssmin styles/*.css > styles/styles.min.css
+
+js/styles.js: styles/min.css
+	mkdir -p js/ && node_modules/webrtc-core/scripts/export-style styles/styles.min.css js/styles.js
+
+## Compile jade templates #########################################################
+js/templates.js: $(JADE_FILES)
+	mkdir -p js/ && templatizer -d templates -o js/templates.js
