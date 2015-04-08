@@ -10,14 +10,14 @@ js/media.js: $(MEDIA_FILES)
 
 ## Compile styles ##################################################################
 styles/css: $(STYLUS_FILES)
-	stylus --include-css styles/styles.styl -o styles
+	node_modules/stylus/bin/stylus --include-css styles/styles.styl -o styles
 
 styles/min.css: styles/css
-	cssmin styles/*.css > styles/styles.min.css
+	node_modules/cssmin/bin/cssmin styles/*.css > styles/styles.min.css
 
 js/styles.js: styles/min.css
 	mkdir -p js/ && node_modules/webrtc-core/scripts/export-style styles/styles.min.css js/styles.js
 
 ## Compile jade templates #########################################################
 js/templates.js: $(JADE_FILES)
-	mkdir -p js/ && templatizer -d templates -o js/templates.js
+	mkdir -p js/ && node_modules/templatizer/bin/cli -d templates -o js/templates.js
