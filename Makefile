@@ -9,7 +9,7 @@ symlinks: node_modules/bdsft-webrtc-media.js
 node_modules/webrtc-core: 
 	ln -sf ../ node_modules/webrtc-core
 
-node_modules/bdsft-webrtc-templates.js:
+node_modules/bdsft-webrtc-media.js:
 	ln -sf ../js/bdsft-webrtc-media.js node_modules/bdsft-webrtc-media.js
 
 ## Compile styles ##################################################################
