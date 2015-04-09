@@ -1,2 +1,58 @@
 @import 'icons'
-@import 'variables'
+
+.bdsft-client
+  .table
+    display table
+    width 100%
+  .fixed
+    table-layout fixed
+  .collapse
+    border-collapse collapse
+  .cell
+    display table-cell
+  .heading
+    display table-row
+    font-weight bold
+  .row
+    display table-row
+    margin 0
+  .group
+    display table-row-group
+
+  .hidden
+    display: none !important
+    
+  .popup
+    background #333333
+    padding 10px
+    border 2px solid #DDDDDD
+    float left
+    position absolute
+    top 0
+    bottom 0
+    left 0
+    right 0
+    margin auto
+    box-shadow 0px 0px 10px #999999
+    border-radius 3px
+    font-size 14px
+    line-height 18px
+    z-index 100
+    .actions
+      text-align right
+    .title
+      font-weight bold
+      font-size 16px
+      color white
+
+  .fadeable
+    opacity 0
+    display block
+    z-index -1
+    backface-visibility hidden
+
+  .fadeIn
+    {fadeIn}
+
+  .fadeOut
+    {fadeOut}
