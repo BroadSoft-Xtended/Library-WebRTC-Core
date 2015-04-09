@@ -1,4 +1,4 @@
-all: js/media.js node_modules/webrtc-core
+all: node_modules/webrtc-core js/media.js js/styles.js
 
 include ./makefile.defs
 
