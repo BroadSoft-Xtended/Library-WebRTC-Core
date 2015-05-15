@@ -7,7 +7,7 @@ describe('configuration', function() {
       domainTo: 'domain.to',
       domainFrom: 'domain.from'
     };
-    core = require('webrtc-core');
+    core = require('../lib/app');
     testUA = core.testUA;
     testUA.createCore('configuration', config);
     testUA.createCore('sipstack', config);

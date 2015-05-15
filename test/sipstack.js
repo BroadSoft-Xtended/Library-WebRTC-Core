@@ -2,7 +2,7 @@ require('./includes/common');
 describe('sipstack', function() {
 
   beforeEach(function() {
-    core = require('webrtc-core');
+    core = require('../lib/app');
     testUA = core.testUA;
     testUA.createCore('configuration');
     testUA.createCore('sipstack');

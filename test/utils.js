@@ -2,7 +2,7 @@ require('./includes/common');
 describe('utils', function() {
 
   before(function() {
-    core = require('webrtc-core');
+    core = require('../lib/app');
   });
   
   it('isValidUsPstn', function() {
