@@ -10,13 +10,10 @@ js/media.js: $(MEDIA_FILES)
 
 ## Compile styles ##################################################################
 styles/css: $(STYLUS_FILES)
-	node_modules/stylus/bin/stylus --import node_modules/webrtc-core/styles/variables -u stylus-font-face --with {limit:20000} --include-css styles/styles.styl -o styles
+	node_modules/stylus/bin/stylus --import node_modules/webrtc-core/styles/components/variables -u stylus-font-face --with {limit:20000} --include-css styles/*.styl -o styles
 
-styles/min.css: styles/css
-	node_modules/cssmin/bin/cssmin styles/*.css > styles/styles.min.css
-
-js/styles.js: styles/min.css
-	mkdir -p js/ && node_modules/webrtc-core/scripts/export-style styles/styles.min.css js/styles.js
+js/styles.js: styles/css
+	mkdir -p js/ && node_modules/webrtc-core/scripts/export-style styles js/styles.js
 
 ## Compile jade templates #########################################################
 js/templates.js: $(JADE_FILES)
