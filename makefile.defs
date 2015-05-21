@@ -11,7 +11,7 @@ js/media.js: $(MEDIA_FILES)
 
 ## Compile images ##################################################################
 js/images.js: $(IMAGE_FILES)
-	mkdir -p js/ && scripts/encode-base64 images js/images.js
+	mkdir -p js/ && node_modules/webrtc-core/scripts/encode-base64 images js/images.js
 
 ## Compile styles ##################################################################
 styles/css: $(STYLUS_FILES)
