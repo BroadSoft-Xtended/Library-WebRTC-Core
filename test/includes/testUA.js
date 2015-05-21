@@ -58,7 +58,7 @@ module.exports = {
     if(!global.hasOwnProperty(name)) {
       Object.defineProperty(global, name, {
         get: function() {
-          return global[instancesObj][name+'_'+id];
+          return global[instancesObj][id][name];
         }
       });
     }
@@ -70,8 +70,8 @@ module.exports = {
     if(createOptions.lib) {
       options.dependencies[name.replace(/view/i, '')] = createOptions.lib;
     }
-    if(global[instancesObj] && global[instancesObj][name+'_'+id]) {
-      delete global[instancesObj][name+'_'+id];
+    if(global[instancesObj] && global[instancesObj][id] && global[instancesObj][id][name]) {
+      delete global[instancesObj][id][name];
     }
     core.factory(options)(createOptions.constructor);
   },

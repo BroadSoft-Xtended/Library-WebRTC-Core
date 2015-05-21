@@ -11,7 +11,7 @@ describe('configuration', function() {
     testUA = core.testUA;
     testUA.createCore('configuration', config);
     testUA.createCore('sipstack', config);
-    eventbus = bdsft_client_instances.eventbus_test;
+    eventbus = bdsft_client_instances.test.eventbus;
     testUA.mockWebRTC();
   });
 
