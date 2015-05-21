@@ -1,12 +1,17 @@
 SHELL := /bin/bash
 
 MEDIA_FILES := $(shell glob-cli "media/**/*")
+IMAGE_FILES := $(shell glob-cli "images/**/*")
 JADE_FILES := $(shell glob-cli "templates/**/*.jade")
 STYLUS_FILES := $(shell glob-cli "styles/**/*.styl")
 
 ## Compile media ##################################################################
 js/media.js: $(MEDIA_FILES)
-	mkdir -p js/ && scripts/encode-media media js/media.js
+	mkdir -p js/ && scripts/encode-base64 media js/media.js
+
+## Compile images ##################################################################
+js/images.js: $(IMAGE_FILES)
+	mkdir -p js/ && scripts/encode-base64 images js/images.js
 
 ## Compile styles ##################################################################
 styles/css: $(STYLUS_FILES)

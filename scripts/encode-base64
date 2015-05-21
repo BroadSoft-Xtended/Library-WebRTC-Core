@@ -3,16 +3,16 @@
 var fs = require('fs');
 
 module.exports = function(indir, outfile, cb) {
-    var mediasBase64 = {};
+    var base64 = {};
     var files = fs.readdirSync(indir);
     files.forEach(function(file) {
         var filePath = path.join(indir, file);
         var original_data = fs.readFileSync(filePath);
         var name = file.match(/(.*)\./).pop()
-        mediasBase64[name] = original_data.toString('base64');
+        base64[name] = original_data.toString('base64');
     });
 
-    fs.writeFileSync(outfile, 'module.exports = ' + JSON.stringify(mediasBase64));
+    fs.writeFileSync(outfile, 'module.exports = ' + JSON.stringify(base64));
 
     cb();
 };
@@ -22,5 +22,5 @@ if (require.main === module) {
     var indir = path.join(process.cwd(), process.argv[2]);
     var outfile = path.join(process.cwd(), process.argv[3]);
 
-    module.exports(indir, outfile, console.log.bind(console, 'Encoded media '+indir));
+    module.exports(indir, outfile, console.log.bind(console, 'Encoded '+indir));
 }
