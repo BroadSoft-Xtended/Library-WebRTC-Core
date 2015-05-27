@@ -192,19 +192,39 @@ describe('configuration', function() {
     };
     expect(configuration.getExSIPOptions()).toEqual(options);
   });
-  it('setClientConfigFlags', function() {
-    var flags = configuration.getClientConfigFlags();
+  it('getExSIPOptions with screenshare enabled', function() {
+    eventbus.screenshare(true);
+    var options = {
+      mediaConstraints: {
+        video: {
+          mandatory: {
+            chromeMediaSource: 'screen'
+          }
+        }
+      },
+      createOfferConstraints: {
+        mandatory: {
+          OfferToReceiveAudio: true,
+          OfferToReceiveVideo: true
+        }
+      }
+    };
+    expect(configuration.getExSIPOptions()).toEqual(options);
+    eventbus.screenshare(false);
+  });
+  it('setFeatures', function() {
+    var flags = configuration.getFeatures();
 
     for (var flag in configuration.Flags) {
       setClientConfigFlagAndAssert(flag);
     }
 
-    configuration.setClientConfigFlags(flags);
+    configuration.setFeatures(flags);
   });
   it('features url parameter', function() {
     location.search = '?features=524287';
     testUA.createCore('configuration', config);
-    expect(configuration.getClientConfigFlags()).toEqual(524287);
+    expect(configuration.getFeatures()).toEqual(524287);
     location.search = '';
   });
   it('with view url param', function() {
@@ -283,9 +303,9 @@ describe('configuration', function() {
 
   function setClientConfigFlagAndAssert(flagName) {
     var flagValue = configuration.Flags[flagName];
-    configuration.setClientConfigFlags(flagValue);
+    configuration.setFeatures(flagValue);
     assertClientConfigFlags([flagName], true);
-    expect(configuration.getClientConfigFlags()).toEqual(flagValue);
+    expect(configuration.getFeatures()).toEqual(flagValue);
   }
 
   function assertClientConfigFlags(names, enabled) {
