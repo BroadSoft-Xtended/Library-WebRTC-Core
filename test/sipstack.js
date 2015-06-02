@@ -109,6 +109,7 @@ describe('sipstack', function() {
       }
     };
     expect(sipstack.getExSIPOptions()).toEqual(options);
+    urlconfig.audioOnlyView = false;
   });
   it('getExSIPOptions with resolution 960x720', function() {
     sipstack.audioOnly = false;
@@ -135,7 +136,6 @@ describe('sipstack', function() {
   it('getExSIPOptions with hd=true', function() {
     urlconfig.hd = true;
     sipstack.encodingResolution = '960x720';
-    testUA.createCore('sipstack');
     var options = {
       mediaConstraints: {
         audio: true,
