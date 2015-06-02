@@ -4,21 +4,20 @@ describe('sipstack', function() {
   beforeEach(function() {
     core = require('../lib/app');
     testUA = core.testUA;
-    testUA.createCore('configuration');
+    testUA.createCore('urlconfig');
+    testUA.createCore('cookieconfig');
     testUA.createCore('sipstack');
+    eventbus = bdsft_client_instances.test.eventbus;
     testUA.mockWebRTC();
   });
 
   it('RTCMediaHandlerOptions and bandwidth med change', function() {
-    configuration.allowOutside = true;
-    
     sipstack.ua.setRtcMediaHandlerOptions = function(options) {
       rtcMediaHandlerOptions = options;
     }
-    configuration.resolutionType = core.constants.WIDESCREEN;
-    configuration.encodingResolution = core.constants.R_640x360;
-    configuration.bandwidthMed =  "600";
-    expect(configuration.encodingResolution).toEqual('640x360');
+    sipstack.encodingResolution = core.constants.R_640x360;
+    sipstack.bandwidthMed =  "600";
+    expect(sipstack.encodingResolution).toEqual('640x360');
     expect(rtcMediaHandlerOptions).toEqual({
       RTCConstraints: {
         'optional': [],
@@ -30,14 +29,11 @@ describe('sipstack', function() {
     });
   });
   it('RTCMediaHandlerOptions and bandwidth low change for resolution 180', function() {
-    configuration.allowOutside = true;
-    
     sipstack.ua.setRtcMediaHandlerOptions = function(options) {
       rtcMediaHandlerOptions = options;
     }
-    configuration.bandwidthLow = "200";
-    configuration.resolutionType = core.constants.WIDESCREEN;
-    configuration.encodingResolution = core.constants.R_320x180;
+    sipstack.bandwidthLow = "200";
+    sipstack.encodingResolution = core.constants.R_320x180;
     expect(rtcMediaHandlerOptions).toEqual({
       RTCConstraints: {
         'optional': [],
@@ -48,4 +44,213 @@ describe('sipstack', function() {
       "videoBandwidth": "200"
     });
   });
+    it('getExSIPConfig() with userid with empty spaces', function() {
+    cookieconfig.userid = 'my user id';
+    expect(sipstack.getExSIPConfig().uri).toEqual("my%20user%20id@broadsoftlabs.com");
+    cookieconfig.userid = null;
+  });
+  it('getExSIPOptions:', function() {
+    sipstack.encodingResolution = '640x480';
+    sipstack.audioOnly = false;
+    var options = {
+      mediaConstraints: {
+        audio: true,
+        video: {
+          mandatory: {
+            maxWidth: 640,
+            maxHeight: 480
+          }
+        }
+      },
+      createOfferConstraints: {
+        mandatory: {
+          OfferToReceiveAudio: true,
+          OfferToReceiveVideo: true
+        }
+      }
+    };
+    expect(sipstack.getExSIPOptions()).toEqual(options);
+  });
+  it('getExSIPOptions with resolution', function() {
+    sipstack.audioOnly = false;
+    sipstack.encodingResolution = '320x240';
+    var options = {
+      mediaConstraints: {
+        audio: true,
+        video: {
+          mandatory: {
+            maxWidth: 320,
+            maxHeight: 240
+          }
+        }
+      },
+      createOfferConstraints: {
+        mandatory: {
+          OfferToReceiveAudio: true,
+          OfferToReceiveVideo: true
+        }
+      }
+    };
+    expect(sipstack.getExSIPOptions()).toEqual(options);
+  });
+  it('getExSIPOptions with audioOnlyView', function() {
+    urlconfig.audioOnlyView = true;
+    testUA.createCore('sipstack');
+    var options = {
+      mediaConstraints: {
+        audio: true,
+        video: false
+      },
+      createOfferConstraints: {
+        mandatory: {
+          OfferToReceiveAudio: true,
+          OfferToReceiveVideo: false
+        }
+      }
+    };
+    expect(sipstack.getExSIPOptions()).toEqual(options);
+  });
+  it('getExSIPOptions with resolution 960x720', function() {
+    sipstack.audioOnly = false;
+    sipstack.encodingResolution = '960x720';
+    var options = {
+      mediaConstraints: {
+        audio: true,
+        video: {
+          mandatory: {
+            minWidth: 960,
+            minHeight: 720
+          }
+        }
+      },
+      createOfferConstraints: {
+        mandatory: {
+          OfferToReceiveAudio: true,
+          OfferToReceiveVideo: true
+        }
+      }
+    };
+    expect(sipstack.getExSIPOptions()).toEqual(options);
+  });
+  it('getExSIPOptions with hd=true', function() {
+    urlconfig.hd = true;
+    sipstack.encodingResolution = '960x720';
+    testUA.createCore('sipstack');
+    var options = {
+      mediaConstraints: {
+        audio: true,
+        video: {
+          mandatory: {
+            minWidth: 1280,
+            minHeight: 720
+          }
+        }
+      },
+      createOfferConstraints: {
+        mandatory: {
+          OfferToReceiveAudio: true,
+          OfferToReceiveVideo: true
+        }
+      }
+    };
+    expect(sipstack.getExSIPOptions()).toEqual(options);
+  });
+  it('getExSIPOptions with screenshare enabled', function() {
+    eventbus.screenshare(true);
+    var options = {
+      mediaConstraints: {
+        video: {
+          mandatory: {
+            chromeMediaSource: 'screen'
+          }
+        }
+      },
+      createOfferConstraints: {
+        mandatory: {
+          OfferToReceiveAudio: true,
+          OfferToReceiveVideo: true
+        }
+      }
+    };
+    expect(sipstack.getExSIPOptions()).toEqual(options);
+    eventbus.screenshare(false);
+  });
+  it('websocketsServers', function() {
+    sipstack.websocketsServers = [{
+      'ws_uri': 'ws://webrtc-gw1.broadsoft.com:8060',
+      'weight': 0
+    }, {
+      'ws_uri': 'ws://webrtc-gw2.broadsoft.com:8060',
+      'weight': 0
+    }, {
+      'ws_uri': 'ws://webrtc-gw.broadsoft.com:8060',
+      'weight': 0
+    }];
+    sipstack.initUA();
+    expect(sipstack.ua.configuration.ws_servers.length).toEqual(3);
+  });
+  it('networkUserId set', function() {
+    sipstack.networkUserId = '8323303809';
+    sipstack.initUA();
+    expect(sipstack.ua.configuration.authorization_user).toEqual('8323303809');
+    expect(sipstack.ua.configuration.uri.toString()).toEqual('sip:8323303809@' + sipstack.domainFrom);
+    sipstack.networkUserId = false;
+  });
+  it('WEBRTC-41 : networkUserId and userId set', function() {
+    sipstack.networkUserId = '8323303809';
+    location.search = '?userid=8323303810';
+    sipstack.initUA();
+    expect(sipstack.ua.configuration.authorization_user).toEqual('8323303809', "networkUserId takes precendence over userid");
+    sipstack.networkUserId = false;
+  });
+  it('enableConnectLocalMedia', function() {
+    expect(sipstack.enableConnectLocalMedia).toEqual(true);
+  });
+  it('enableConnectLocalMedia = false', function() {
+    testUA.createCore('sipstack', {sipstack: {enableConnectLocalMedia: false}});
+    expect(sipstack.enableConnectLocalMedia).toEqual(false);
+  });
+  it('enableIms = true', function() {
+    sipstack.enableIms = true;
+    sipstack.initUA();
+    expect(sipstack.ua.configuration.enable_ims).toEqual(true);
+  });
+  it('enableIms = false', function() {
+    sipstack.enableIms = false;
+    sipstack.initUA();
+    expect(sipstack.ua.configuration.enable_ims).toEqual(false);
+  });
+  it('userid:', function() {
+    sipstack.initUA();
+    expect(sipstack.ua.configuration.uri !== undefined).toEqual(true);
+  });
+  it('with settingUserID', function() {
+    cookieconfig.userid = '12345';
+    expect(sipstack.getExSIPConfig("1509", false).register).toEqual(true);
+    testUA.connect();
+    var registered = false;
+    eventbus.on("registered", function(e) {
+      registered = true;
+    });
+    sipstack.ua.emit('registered', sipstack.ua);
+    expect(registered).toEqual(true, "should have received registered from UA");
+    cookieconfig.userid = null;
+  });
+  it('without settingUserID', function() {
+    sipstack.userid = '';
+    expect(sipstack.getExSIPConfig("1509", "4009").register).toEqual(false);
+  });
+  it('without settingUserID and with sipstack.register', function() {
+    sipstack.register = true;
+    sipstack.userid = '';
+    expect(sipstack.getExSIPConfig("1509", false).register).toEqual(true);
+    testUA.connect();
+    var registered = false;
+    eventbus.on("registered", function(e) {
+      registered = true;
+    });
+    sipstack.ua.emit('registered', sipstack.ua);
+    expect(registered).toEqual(true, "should have received registered from UA");
+  });
+
 });

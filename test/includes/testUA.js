@@ -1,5 +1,5 @@
 var id = 'test'
-var instancesObj = 'bdsft_client_instances';
+var namespace = 'bdsft_client_instances';
 
 module.exports = {
   setupLocalStorage: function(){
@@ -58,20 +58,20 @@ module.exports = {
     if(!global.hasOwnProperty(name)) {
       Object.defineProperty(global, name, {
         get: function() {
-          return global[instancesObj][id][name];
+          return global[namespace][id][name];
         }
       });
     }
 
     var core = require('../../lib/app');
-    var options = core.utils.extend({}, core.defaults, {id: id, instancesObj: instancesObj}, createOptions.config);
+    var options = core.utils.extend({}, core.defaults, {id: id, namespace: namespace}, createOptions.config);
     options.dependencies = createOptions.dependencies || {};
     options.dependencies.core = core;
     if(createOptions.lib) {
       options.dependencies[name.replace(/view/i, '')] = createOptions.lib;
     }
-    if(global[instancesObj] && global[instancesObj][id] && global[instancesObj][id][name]) {
-      delete global[instancesObj][id][name];
+    if(global[namespace] && global[namespace][id] && global[namespace][id][name]) {
+      delete global[namespace][id][name];
     }
     core.factory(options)(createOptions.constructor);
   },
