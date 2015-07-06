@@ -22,7 +22,8 @@ module.exports = {
 	},
 	sound: {
 	    volumeClick: 1,
-	    volumeDTMF: 1
+	    volumeDTMF: 1,
+	    volumeRingtone: 1
 	},
 	fullscreen: {
 		enableFullscreen: true

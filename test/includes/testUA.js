@@ -217,6 +217,17 @@ module.exports = {
     return session;
   },
 
+  historyRtcSession: function(uri) {
+    return {
+      start_time: new Date(),
+      end_time: new Date(),
+      remote_identity: {
+        uri: (uri || "remote")
+      },
+      direction: "outgoing"
+    }
+  },
+
   incomingSession: function() {
     var ExSIP = require('../../lib/app').exsip;
     var session = this.createSession();
