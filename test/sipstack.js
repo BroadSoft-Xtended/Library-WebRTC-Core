@@ -219,12 +219,20 @@ describe('sipstack', function() {
     cookieconfig.userid = '123456';
     expect(sipstack.ua.configuration.uri !== undefined).toEqual(true);
   });
-  it('with settingUserID', function() {
+  it('register with cookieconfig.userid', function() {
     cookieconfig.userid = '12345';
     expect(sipstack.getExSIPConfig("1509", false).register).toEqual(true);
     testUA.connect();
     sipstack.ua.emit('registered', sipstack.ua);
     expect(sipstack.registered).toEqual(true, "should have received registered from UA");
+    cookieconfig.userid = null;
+  });
+  it('register with cookieconfig.userid and wrong user', function() {
+    cookieconfig.userid = 'wronguserid';
+    expect(sipstack.getExSIPConfig("1509", false).register).toEqual(true);
+    testUA.connect();
+    testUA.registrationFailed(404);
+    expect(sipstack.registrationStatus).toEqual('404', "should have received registrationFailed 404 from UA");
     cookieconfig.userid = null;
   });
   it('without settingUserID', function() {
