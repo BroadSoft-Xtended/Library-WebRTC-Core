@@ -1,6 +1,6 @@
 @import 'components/icons'
 
-.bdsft-client
+.bdsft-webrtc
   .table
     display table
     width 100%
@@ -21,9 +21,11 @@
 
   .hidden
     display: none !important
+  .opaque
+    opacity: 0 !important
     
   .popup
-    background #333333
+    background #292929
     padding 10px
     border 2px solid #DDDDDD
     float left
@@ -42,7 +44,7 @@
       text-align right
     .title
       font-weight bold
-      font-size 16px
+      font-size 18px
       color white
       
   .centered
@@ -52,6 +54,10 @@
     right auto
     transform translate(-50%,-50%)
     backface-visibility hidden
+    
+  .audioOnly .centered, .audioOnly.centered
+    top 0%
+    transform translate(-50%,40px)
 
   .fadeable
     opacity 0

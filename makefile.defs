@@ -7,7 +7,7 @@ STYLUS_FILES := $(shell glob-cli "styles/**/*.styl")
 
 ## Compile media ##################################################################
 js/media.js: $(MEDIA_FILES)
-	mkdir -p js/ && scripts/encode-base64 media js/media.js
+	mkdir -p js/ && node_modules/webrtc-core/scripts/encode-base64 media js/media.js
 
 ## Compile images ##################################################################
 js/images.js: $(IMAGE_FILES)

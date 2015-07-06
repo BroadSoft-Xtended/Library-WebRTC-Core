@@ -32,7 +32,7 @@ module.exports = {
   createClientDiv: function() {
     var div = document.createElement("div");
     var div2 = document.createElement("div");
-    div.className = 'bdsft-client';
+    div.className = 'bdsft-webrtc';
     div2.className = 'client';
     document.body.appendChild(div);
     div.appendChild(div2);
@@ -162,6 +162,14 @@ module.exports = {
     });
   },
 
+  unregistered: function() {
+    sipstack.ua.emit('unregistered', sipstack.ua, {
+      response: {
+        status_code: 200
+      }
+    });
+  },
+
   endCall: function() {
     var ExSIP = require('../../lib/app').exsip;
     if(sipstack.activeSession) {
@@ -266,6 +274,7 @@ module.exports = {
       session: session,
       request: request
     });
+    return session;
   },
 
   createLocalMedia: function() {
@@ -279,6 +288,7 @@ module.exports = {
 
   mockWebRTC: function() {
     var self = this;
+    console.debug = function(msg) {console.info(msg);}
     var ExSIP = require('../../lib/app').exsip;
     ExSIP.WebRTC.RTCPeerConnection = function() {
       return {

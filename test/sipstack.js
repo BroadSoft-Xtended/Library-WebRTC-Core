@@ -7,7 +7,7 @@ describe('sipstack', function() {
     testUA.createCore('urlconfig');
     testUA.createCore('cookieconfig');
     testUA.createCore('sipstack');
-    eventbus = bdsft_client_instances.test.eventbus;
+    screenshare = bdsft_client_instances.test.screenshare;
     testUA.mockWebRTC();
   });
 
@@ -155,8 +155,8 @@ describe('sipstack', function() {
     };
     expect(sipstack.getExSIPOptions()).toEqual(options);
   });
-  it('getExSIPOptions with screenshare enabled', function() {
-    eventbus.screenshare(true);
+  it('getExSIPOptions with screenshare started', function() {
+    screenshare.start();
     var options = {
       mediaConstraints: {
         video: {
@@ -173,7 +173,7 @@ describe('sipstack', function() {
       }
     };
     expect(sipstack.getExSIPOptions()).toEqual(options);
-    eventbus.screenshare(false);
+    screenshare.stop();
   });
   it('websocketsServers', function() {
     sipstack.websocketsServers = [{
@@ -186,20 +186,17 @@ describe('sipstack', function() {
       'ws_uri': 'ws://webrtc-gw.broadsoft.com:8060',
       'weight': 0
     }];
-    sipstack.initUA();
     expect(sipstack.ua.configuration.ws_servers.length).toEqual(3);
   });
   it('networkUserId set', function() {
     sipstack.networkUserId = '8323303809';
-    sipstack.initUA();
     expect(sipstack.ua.configuration.authorization_user).toEqual('8323303809');
     expect(sipstack.ua.configuration.uri.toString()).toEqual('sip:8323303809@' + sipstack.domainFrom);
     sipstack.networkUserId = false;
   });
   it('WEBRTC-41 : networkUserId and userId set', function() {
-    sipstack.networkUserId = '8323303809';
     location.search = '?userid=8323303810';
-    sipstack.initUA();
+    sipstack.networkUserId = '8323303809';
     expect(sipstack.ua.configuration.authorization_user).toEqual('8323303809', "networkUserId takes precendence over userid");
     sipstack.networkUserId = false;
   });
@@ -212,45 +209,26 @@ describe('sipstack', function() {
   });
   it('enableIms = true', function() {
     sipstack.enableIms = true;
-    sipstack.initUA();
     expect(sipstack.ua.configuration.enable_ims).toEqual(true);
   });
   it('enableIms = false', function() {
     sipstack.enableIms = false;
-    sipstack.initUA();
     expect(sipstack.ua.configuration.enable_ims).toEqual(false);
   });
   it('userid:', function() {
-    sipstack.initUA();
+    cookieconfig.userid = '123456';
     expect(sipstack.ua.configuration.uri !== undefined).toEqual(true);
   });
   it('with settingUserID', function() {
     cookieconfig.userid = '12345';
     expect(sipstack.getExSIPConfig("1509", false).register).toEqual(true);
     testUA.connect();
-    var registered = false;
-    eventbus.on("registered", function(e) {
-      registered = true;
-    });
     sipstack.ua.emit('registered', sipstack.ua);
-    expect(registered).toEqual(true, "should have received registered from UA");
+    expect(sipstack.registered).toEqual(true, "should have received registered from UA");
     cookieconfig.userid = null;
   });
   it('without settingUserID', function() {
     sipstack.userid = '';
     expect(sipstack.getExSIPConfig("1509", "4009").register).toEqual(false);
   });
-  it('without settingUserID and with sipstack.register', function() {
-    sipstack.register = true;
-    sipstack.userid = '';
-    expect(sipstack.getExSIPConfig("1509", false).register).toEqual(true);
-    testUA.connect();
-    var registered = false;
-    eventbus.on("registered", function(e) {
-      registered = true;
-    });
-    sipstack.ua.emit('registered', sipstack.ua);
-    expect(registered).toEqual(true, "should have received registered from UA");
-  });
-
 });

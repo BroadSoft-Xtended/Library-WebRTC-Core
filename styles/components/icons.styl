@@ -2,7 +2,7 @@
 font-face-inline('Exario-Icon-Fonts', 'Exario-Icon-Fonts', '../fonts')
 font-face-inline('bsl_icons', 'bsl_icons', '../fonts')
 
-.bdsft-client
+.bdsft-webrtc
   [class^="icon-"], [class*=" icon-"]
     font-family 'bsl_icons'
     speak none
@@ -110,7 +110,7 @@ font-face-inline('bsl_icons', 'bsl_icons', '../fonts')
     &:before
       content "\e602"
 
-  .icon-selfViewEnable:before, .icon-selfViewEnable:hover:before, .icon-selfViewDisable:before, .icon-selfViewDisable:hover:before
+  .icon-selfViewShow:before, .icon-selfViewShow:hover:before, .icon-selfViewHide:before, .icon-selfViewHide:hover:before
     content "\f17f"
 
   .icon-transfer:before, .icon-transfer:hover:before
@@ -126,16 +126,16 @@ font-face-inline('bsl_icons', 'bsl_icons', '../fonts')
       color #3B9E3B
 
   @css {
-    .bdsft-client .icon-highlightable:hover{
+    .bdsft-webrtc .icon-highlightable:hover{
       color: <%= iconHightlightColor %>;
     }
   }
   @css {
-    .bdsft-client .icon a:hover:before, 
-    .bdsft-client .icon a:hover, 
-    .bdsft-client .icon span:hover, 
-    .bdsft-client .videoBar a:hover:before, 
-    .bdsft-client .videoBar a:hover {
+    .bdsft-webrtc .icon a:hover:before, 
+    .bdsft-webrtc .icon a:hover, 
+    .bdsft-webrtc .icon span:hover, 
+    .bdsft-webrtc .videoBar a:hover:before, 
+    .bdsft-webrtc .videoBar a:hover {
       color: <%= iconHightlightColor %>;
     }
   }
