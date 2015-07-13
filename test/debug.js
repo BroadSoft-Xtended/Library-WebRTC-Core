@@ -3,7 +3,6 @@ describe('debug', function() {
 
   beforeEach(function() {
     core = require('../lib/app');
-    testUA = core.testUA;
     debug = core.debug.create({id: 'test', name: 'test'});
     console.debug = function(msg){console.log(msg);}
     msgs = [];
