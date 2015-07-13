@@ -15,7 +15,6 @@
     "deep-extend": "0.4.0",
     "ejs": "1.0.0",
     "event-emitter": "0.3.3",
-    "exsip": "broadsoftxtended/ExSIP.git#cjs",
     "jquery": "2.1.3",
     "jquery.cookie": "1.4.1",
     "stacktrace-js": "0.6.4"
