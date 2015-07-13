@@ -99,11 +99,6 @@ module.exports = {
     }
   },
 
-  connectAndStartCall: function() {
-    this.connect();
-    this.startCall();
-  },
-
   val: function(element, value) {
     element.val(value);
     element.trigger('change');
@@ -132,34 +127,5 @@ module.exports = {
         return [{}];
       }
     };
-  },
-
-  connect: function(){
-    sipstack.connecting = false;
-    sipstack.connected = true;
-  },
-
-  disconnect: function(){
-    sipstack.connecting = false;
-    sipstack.connected = false;
-  },
-
-  registered: function(){
-    sipstack.registering = false;
-    sipstack.registered = true;
-    sipstack.registrationStatus = undefined;
-  },
-
-  unregistered: function() {
-    sipstack.unregistering = false;
-    sipstack.registered = false;
-    sipstack.registrationStatus = undefined;
-  },
-
-  registrationFailed: function(status){
-    sipstack.unregistering = false;
-    sipstack.registering = false;
-    sipstack.registered = false;
-    sipstack.registrationStatus = status+'';
   }
 }
