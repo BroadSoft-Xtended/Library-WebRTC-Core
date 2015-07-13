@@ -171,7 +171,7 @@ module.exports = {
   },
 
   endCall: function() {
-    var ExSIP = require('../../lib/app').exsip;
+    var ExSIP = require('exsip');
     if(sipstack.activeSession) {
       sipstack.activeSession.status = ExSIP.RTCSession.C.STATUS_TERMINATED;
       sipstack.activeSession.emit('ended', sipstack.activeSession);      
@@ -229,7 +229,7 @@ module.exports = {
   },
 
   incomingSession: function() {
-    var ExSIP = require('../../lib/app').exsip;
+    var ExSIP = require('exsip');
     var session = this.createSession();
     session.id = "incomingid";
     session.direction = "incoming";
@@ -241,7 +241,7 @@ module.exports = {
   },
 
   createSession: function() {
-    var ExSIP = require('../../lib/app').exsip
+    var ExSIP = require('exsip')
     var session = new ExSIP.RTCSession(sipstack.ua);
     session.hold = function(success) {
       session.held();
@@ -300,7 +300,7 @@ module.exports = {
   mockWebRTC: function() {
     var self = this;
     console.debug = function(msg) {console.info(msg);}
-    var ExSIP = require('../../lib/app').exsip;
+    var ExSIP = require('exsip');
     ExSIP.WebRTC.RTCPeerConnection = function() {
       return {
         localDescription: null,
