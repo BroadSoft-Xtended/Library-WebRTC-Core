@@ -4,6 +4,6 @@ module.exports = {
 		level: 'debug'
 	},
 	urlconfig: {
-		view: 'audioOnly'
+		view: 'audioVideo'
 	}
 }
