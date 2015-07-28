@@ -18,5 +18,10 @@ describe('urlconfig', function() {
     test.createCore('urlconfig');
     expect(urlconfig.audioOnlyView).toEqual(true);
   });
+  it('enableMessages=false', function() {
+    location.search = '?enableMessages=false';
+    test.createCore('urlconfig');
+    expect(urlconfig.enableMessages).toEqual(false);
+  });
 
 });

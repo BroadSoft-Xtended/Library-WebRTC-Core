@@ -14,4 +14,12 @@ describe('utils', function() {
     expect(core.utils.isValidUsPstn('22345678908')).toEqual( false);
     expect(core.utils.isValidUsPstn('asasdasdas')).toEqual( false);
   });
+
+  it('getSearchVariable', function() {
+    location.search = '?view=audioOnly&enableCallControl=true';
+    expect(core.utils.getSearchVariable('view')).toEqual('audioOnly');
+    expect(core.utils.getSearchVariable('enableCallControl')).toEqual(true);
+    expect(core.utils.getSearchVariable('enableMessages')).toEqual(undefined);
+  })
+
 });
