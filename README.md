@@ -65,6 +65,11 @@ Model : bdsft_webrtc.default.eventbus
 	<td>The call has been ended.</td>
 	</tr>
 	<tr>
+	<td>failed</td>
+	<td>{<br/> originator : 'local' or 'remote',<br\> message : ExSIP.SIPMessage,<br\> cause: string{<br/>}</td>
+	<td>The call has failed.</td>
+	</tr>
+	<tr>
 	<td>held</td>
 	<td>ExSIP.RTCSession</td>
 	<td>The call has been put on hold.</td>
