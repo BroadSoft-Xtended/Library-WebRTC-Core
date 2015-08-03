@@ -1,9 +1,9 @@
 SHELL := /bin/bash
 
-MEDIA_FILES := $(shell glob-cli "media/**/*")
-IMAGE_FILES := $(shell glob-cli "images/**/*")
-JADE_FILES := $(shell glob-cli "templates/**/*.jade")
-STYLUS_FILES := $(shell glob-cli "styles/**/*.styl")
+MEDIA_FILES := $(shell node_modules/webrtc-core/node_modules/glob-cli/bin.js "media/**/*")
+IMAGE_FILES := $(shell node_modules/webrtc-core/node_modules/glob-cli/bin.js "images/**/*")
+JADE_FILES := $(shell node_modules/webrtc-core/node_modules/glob-cli/bin.js "templates/**/*.jade")
+STYLUS_FILES := $(shell node_modules/webrtc-core/node_modules/glob-cli/bin.js "styles/**/*.styl")
 
 ## Compile media ##################################################################
 js/media.js: $(MEDIA_FILES)
