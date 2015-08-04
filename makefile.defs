@@ -1,25 +1,20 @@
 SHELL := /bin/bash
 
-MEDIA_FILES := $(shell node_modules/webrtc-core/node_modules/glob-cli/bin.js "media/**/*")
-IMAGE_FILES := $(shell node_modules/webrtc-core/node_modules/glob-cli/bin.js "images/**/*")
-JADE_FILES := $(shell node_modules/webrtc-core/node_modules/glob-cli/bin.js "templates/**/*.jade")
-STYLUS_FILES := $(shell node_modules/webrtc-core/node_modules/glob-cli/bin.js "styles/**/*.styl")
-
 ## Compile media ##################################################################
-js/media.js: $(MEDIA_FILES)
+js/media.js:
 	mkdir -p js/ && node_modules/webrtc-core/scripts/encode-base64 media js/media.js
 
 ## Compile images ##################################################################
-js/images.js: $(IMAGE_FILES)
+js/images.js:
 	mkdir -p js/ && node_modules/webrtc-core/scripts/encode-base64 images js/images.js
 
 ## Compile styles ##################################################################
-styles/css: $(STYLUS_FILES)
+styles/css:
 	node_modules/stylus/bin/stylus --import node_modules/webrtc-core/styles/components/variables -u stylus-font-face --with {limit:20000} --include-css styles/*.styl -o styles
 
 js/styles.js: styles/css
 	mkdir -p js/ && node_modules/webrtc-core/scripts/export-style styles js/styles.js
 
 ## Compile jade templates #########################################################
-js/templates.js: $(JADE_FILES)
+js/templates.js:
 	mkdir -p js/ && node_modules/templatizer/bin/cli -d templates -o js/templates.js

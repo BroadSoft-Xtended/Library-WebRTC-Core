@@ -20,7 +20,6 @@
     "stacktrace-js": "0.6.4"
   },
   "devDependencies": {
-    "glob-cli": "^1.0.0",
     "mocha": "2.1.0",
     "jsdom": "3.1.0",
     "mocha-jsdom": "0.2.0",
