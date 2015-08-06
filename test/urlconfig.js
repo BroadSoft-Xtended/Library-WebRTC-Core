@@ -18,6 +18,13 @@ describe('urlconfig', function() {
     test.createCore('urlconfig');
     expect(urlconfig.audioOnlyView).toEqual(true);
   });
+  it('view change', function() {
+    location.search = '?view=audioVideo';
+    test.createCore('urlconfig');
+    expect(urlconfig.audioOnlyView).toEqual(false);
+    urlconfig.view = 'audioOnly';
+    expect(urlconfig.audioOnlyView).toEqual(true);
+  });
   it('enableMessages=false', function() {
     location.search = '?enableMessages=false';
     test.createCore('urlconfig');
