@@ -190,4 +190,14 @@ networkUserId           |string   |The SIP User ID used for non registered calli
 	4 (enableCallHistory) + 128 (enableMute) = 132
 	</td>
 	</tr>
+	<tr>
+	<td>setViewAudio()</td>
+	<td></td>
+	<td>Sets the view to audioOnly.</td>
+	</tr>
+	<tr>
+	<td>setViewVideo()</td>
+	<td></td>
+	<td>Sets the view to audio and video.</td>
+	</tr>	
 </table>

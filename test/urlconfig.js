@@ -22,7 +22,7 @@ describe('urlconfig', function() {
     location.search = '?view=audioVideo';
     test.createCore('urlconfig');
     expect(urlconfig.audioOnlyView).toEqual(false);
-    urlconfig.view = 'audioOnly';
+    urlconfig.setViewAudio();
     expect(urlconfig.audioOnlyView).toEqual(true);
   });
   it('enableMessages=false', function() {
