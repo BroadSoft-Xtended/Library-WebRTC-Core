@@ -87,6 +87,11 @@ module.exports = {
     expect(element.css('opacity')).toEqual(visible ? "1" : "0");
     expect(element.css('zIndex')).toEqual(visible ? (isPopup ? "100" : "20") : "-1");
   },
+  equalCss: function(element, name, value) {
+    // fix caching bug with jsdom and css() by calling _clearMemoizedQueries();
+    element[0]._clearMemoizedQueries();
+    expect(element.css(name)).toEqual(value);
+  },
 
   deleteAllCookies: function() {
     var cookies = document.cookie.split(";");
