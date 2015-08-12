@@ -51,7 +51,7 @@ Model : bdsft_webrtc.default.eventbus
 	</tr>
 	<tr>
 	<td>digit</td>
-	<td>{<br/> digit : 0 – 9 or \* or \#,<br\> isFromDestination : true if event source is destination input {<br/>}</td>
+	<td>{<br/> digit : 0 – 9 or \* or \#,<br\> isFromDestination : true if event source is destination input <br/>}</td>
 	<td>DMTF digit has been pressed.</td>
 	</tr>
 	<tr>
@@ -61,12 +61,12 @@ Model : bdsft_webrtc.default.eventbus
 	</tr>
 	<tr>
 	<td>ended</td>
-	<td>{<br/> originator : 'local' or 'remote',<br\> message : ExSIP.SIPMessage,<br\> cause: string{<br/>}</td>
+	<td>{<br/> originator : 'local' or 'remote',<br\> message : ExSIP.SIPMessage,<br\> cause: string<br/>}</td>
 	<td>The call has been ended.</td>
 	</tr>
 	<tr>
 	<td>failed</td>
-	<td>{<br/> originator : 'local' or 'remote',<br\> message : ExSIP.SIPMessage,<br\> cause: string{<br/>}</td>
+	<td>{<br/> originator : 'local' or 'remote',<br\> message : ExSIP.SIPMessage,<br\> cause: string<br/>}</td>
 	<td>The call has failed.</td>
 	</tr>
 	<tr>
@@ -76,38 +76,43 @@ Model : bdsft_webrtc.default.eventbus
 	</tr>
 	<tr>
 	<td>iceclosed</td>
-	<td>{<br/> originator : 'local' or 'remote',<br\> response: ExSIP.SIPMessage{<br/>}</td>
+	<td>{<br/> originator : 'local' or 'remote',<br\> response: ExSIP.SIPMessage<br/>}</td>
 	<td>Fired when the iceConnectionState of the peerConnection is closed.</td>
 	</tr>
 	<tr>
 	<td>icecompleted</td>
-	<td>{<br/> originator : 'local' or 'remote',<br\> response: ExSIP.SIPMessage{<br/>}</td>
+	<td>{<br/> originator : 'local' or 'remote',<br\> response: ExSIP.SIPMessage<br/>}</td>
 	<td>Fired when the iceConnectionState of the peerConnection is completed.</td>
 	</tr>
 	<tr>
 	<td>iceconnected</td>
-	<td>{<br/> originator : 'local' or 'remote',<br\> response: ExSIP.SIPMessage{<br/>}</td>
+	<td>{<br/> originator : 'local' or 'remote',<br\> response: ExSIP.SIPMessage<br/>}</td>
 	<td>Fired when the iceConnectionState of the peerConnection is connected.</td>
 	</tr>
 	<tr>
 	<td>incomingCall</td>
-	<td>{<br/> originator : 'local' or 'remote',<br\> session: ExSIP.RTCSession,<br\> request: ExSIP.SIPMessage{<br/>}</td>
+	<td>{<br/> originator : 'local' or 'remote',<br\> session: ExSIP.RTCSession,<br\> request: ExSIP.SIPMessage<br/>}</td>
 	<td>An incoming call has been received.</td>
 	</tr>
 	<tr>
 	<td>modifier</td>
-	<td>{<br/> which : integer of the keyboard key {<br/>}</td>
+	<td>{<br/> which : integer of the keyboard key <br/>}</td>
 	<td>The alt and another key have been pressed.</td>
 	</tr>
 	<tr>
 	<td>newDTMF</td>
-	<td>{<br/> originator : 'local' or 'remote',<br\> dtmf : ExSIP.DTMF,<br\> tone : char{<br/>}</td>
+	<td>{<br/> originator : 'local' or 'remote',<br\> dtmf : ExSIP.DTMF,<br\> tone : char<br/>}</td>
 	<td>A DTMF tone has been sent.</td>
 	</tr>
 	<tr>
 	<td>progress</td>
-	<td>{<br/> originator : 'local' or 'remote',<br\> response: ExSIP.SIPMessage{<br/>}</td>
+	<td>{<br/> originator : 'local' or 'remote',<br\> response: ExSIP.SIPMessage<br/>}</td>
 	<td>The incoming call has been progressed.</td>
+	</tr>
+	<tr>
+	<td>reInvite</td>
+	<td>{<br/> session : ExSIP.RTCSession,<br\> request: ExSIP.SIPMessage<br/>}</td>
+	<td>A reInvite has occured for the session.</td>
 	</tr>
 	<tr>
 	<td>resumed</td>
@@ -116,7 +121,7 @@ Model : bdsft_webrtc.default.eventbus
 	</tr>
 	<tr>
 	<td>started</td>
-	<td>{<br/> originator : 'local' or 'remote',<br\> response: ExSIP.SIPMessage{<br/>}</td>
+	<td>{<br/> originator : 'local' or 'remote',<br\> response: ExSIP.SIPMessage<br/>}</td>
 	<td>The call has been started.</td>
 	</tr>
 	<tr>
