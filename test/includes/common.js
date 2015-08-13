@@ -49,34 +49,33 @@ module.exports = {
   },
   createModelAndView: function(name, dependencies) {
     if(dependencies[name].model) {
-      this.create(name, {dependencies: dependencies, constructor: dependencies[name].model});
+      this.create(name, name, {dependencies: dependencies, constructor: dependencies[name].model});
     }
     if(dependencies[name].view) {
-      this.create(name+'view', {dependencies: dependencies, constructor: dependencies[name].view});
+      this.create(name+'view', name, {dependencies: dependencies, constructor: dependencies[name].view});
     }
   },
   createCore: function(name, config) {
-    this.create(name, {constructor: require('../..')[name], config: config});
+    this.create(name, 'core', {constructor: require('../..')[name], config: config});
   },
-  create: function(name, createOptions) {
+  create: function(name, module, createOptions) {
     createOptions = createOptions || {};
     if(!global.hasOwnProperty(name)) {
       Object.defineProperty(global, name, {
         get: function() {
-          return global[namespace][id][name];
+          return global[namespace][id][module][name];
         }
       });
     }
 
     var core = require('../../lib/app');
     var options = core.utils.extend({}, core.defaults, {id: id, namespace: namespace}, createOptions.config);
-    options.dependencies = createOptions.dependencies || {};
-    options.dependencies.core = core;
+    options.dependencies = core.utils.extend({core: core}, createOptions.dependencies || {});
     if(createOptions.lib) {
       options.dependencies[name.replace(/view/i, '')] = createOptions.lib;
     }
-    if(global[namespace] && global[namespace][id] && global[namespace][id][name]) {
-      delete global[namespace][id][name];
+    if(global[namespace] && global[namespace][id] && global[namespace][id][module] && global[namespace][id][module][name]) {
+      delete global[namespace][id][module][name];
     }
     core.factory(options)(createOptions.constructor);
   },

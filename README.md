@@ -4,7 +4,7 @@
 
 Persists the properties inside cookies with the prefix bdsft_cookieconfig_<property\>.
 
-Model : bdsft_webrtc.default.cookieconfig
+Namespace : bdsft_webrtc.default.core.cookieconfig
 
 ### Properties
 <a name="cookieconfig_properties"></a>
@@ -25,7 +25,7 @@ userid                |string   |The SIP User ID used for registration.
 
 Managing events through a publish/subscribe pattern.
 
-Model : bdsft_webrtc.default.eventbus
+Namespace : bdsft_webrtc.default.core.eventbus
 
 ## Events
 <a name="eventbus_events"></a>
@@ -135,7 +135,7 @@ Model : bdsft_webrtc.default.eventbus
 
 Handles configuration through URL parameters.
 
-Model : bdsft_webrtc.default.urlconfig
+Namespace : bdsft_webrtc.default.core.urlconfig
 
 ### Properties
 <a name="urlconfig_properties"></a>
@@ -163,7 +163,6 @@ networkUserId           |string   |The SIP User ID used for non registered calli
 	<th>Parameters</th>
 	<th>Description</th>
 	</tr>
-	<tr>
 	<tr>
 	<td>getFeatures()</td>
 	<td></td>
