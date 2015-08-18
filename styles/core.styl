@@ -55,7 +55,7 @@
     transform translate(-50%,-50%)
     backface-visibility hidden
   
-  .centered.audioOnly:not(.offerToReceiveVideo)
+  .centered:not(.sendVideo):not(.receiveVideo)
     top: 45px;
     bottom: auto;
     transform: translate(-50%, 0);
@@ -72,10 +72,6 @@
     bottom auto
     top 100%
         
-  .audioOnly .centered, .audioOnly.centered
-    top 0%
-    transform translate(-50%,40px)
-
   .fadeable
     opacity 0
     display block
