@@ -44,12 +44,15 @@ module.exports = {
     var div2 = this.createClientDiv();
     div2.appendChild(view.view[0]);
   },
-  createModelAndView: function(name, dependencies) {
+  createModelAndView: function(name, dependencies, object) {
     if(dependencies[name].model) {
-      return this.create(name, name, {dependencies: dependencies, constructor: dependencies[name].model});
+      this.create(name, name, {dependencies: dependencies, constructor: dependencies[name].model});
     }
     if(dependencies[name].view) {
-      return this.create(name+'view', name, {dependencies: dependencies, constructor: dependencies[name].view});
+      this.create(name+'view', name, {dependencies: dependencies, constructor: dependencies[name].view});
+    }
+    if(object && dependencies[name][object]){
+      this.create(object, name, {dependencies: dependencies, constructor: dependencies[name][object]});
     }
   },
   createCore: function(name, config) {
@@ -74,7 +77,7 @@ module.exports = {
     if(global[namespace] && global[namespace][id] && global[namespace][id][module] && global[namespace][id][module][name]) {
       delete global[namespace][id][module][name];
     }
-    return core.factory(options)(createOptions.constructor);
+    core.factory(options)(createOptions.constructor);
   },
   isVisible: function(element, visible) {
     // fix caching bug with jsdom and css() by calling _clearMemoizedQueries();
