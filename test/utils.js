@@ -22,4 +22,9 @@ describe('utils', function() {
     expect(core.utils.getSearchVariable('enableMessages')).toEqual(undefined);
   })
 
+  it('getSearchVariables', function() {
+    location.search = 'view=audioOnly&enableCallControl=true';
+    expect(core.utils.getSearchVariables()).toEqual({"view":"audioOnly","enableCallControl":true});
+  })
+
 });
