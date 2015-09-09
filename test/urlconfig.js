@@ -30,5 +30,9 @@ describe('urlconfig', function() {
     test.createCore('urlconfig');
     expect(urlconfig.enableMessages).toEqual(false);
   });
+  it('toString', function() {
+    test.createCore('urlconfig');
+    expect(urlconfig.toString()).toEqual('{\"view\":\"audioVideo\",\"enableMessages\":false,\"audioOnlyView\":false}');
+  });
 
 });
