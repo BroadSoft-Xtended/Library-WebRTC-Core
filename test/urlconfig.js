@@ -32,7 +32,7 @@ describe('urlconfig', function() {
   });
   it('toString', function() {
     test.createCore('urlconfig');
-    expect(urlconfig.toString()).toEqual('{\"view\":\"audioVideo\",\"enableMessages\":false,\"audioOnlyView\":false}');
+    expect(urlconfig+'').toEqual('{\"view\":\"audioVideo\",\"enableMessages\":false,\"audioOnlyView\":false}');
   });
 
 });
