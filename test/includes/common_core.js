@@ -44,21 +44,21 @@ module.exports = {
     var div2 = this.createClientDiv();
     div2.appendChild(view.view[0]);
   },
-  createModelAndView: function(name, dependencies, object) {
+  createModelAndView: function(name, dependencies, object, args, opts) {
     if(dependencies[name].model) {
-      this.create(name, name, {dependencies: dependencies, constructor: dependencies[name].model});
+      this.create(name, name, {dependencies: dependencies, constructor: dependencies[name].model}, args, opts);
     }
     if(dependencies[name].view) {
-      this.create(name+'view', name, {dependencies: dependencies, constructor: dependencies[name].view});
+      this.create(name+'view', name, {dependencies: dependencies, constructor: dependencies[name].view}, args, opts);
     }
     if(object && dependencies[name][object]){
-      this.create(object, name, {dependencies: dependencies, constructor: dependencies[name][object]});
+      this.create(object, name, {dependencies: dependencies, constructor: dependencies[name][object]}, args, opts);
     }
   },
-  createCore: function(name, config) {
-    this.create(name, 'core', {constructor: require('../..')[name], config: config});
+  createCore: function(name, config, args, opts) {
+    this.create(name, 'core', {constructor: require('../..')[name], config: config}, args, opts);
   },
-  create: function(name, module, createOptions) {
+  create: function(name, module, createOptions, args, opts) {
     createOptions = createOptions || {};
     if(!global.hasOwnProperty(name)) {
       Object.defineProperty(global, name, {
@@ -77,7 +77,7 @@ module.exports = {
     if(global[namespace] && global[namespace][id] && global[namespace][id][module] && global[namespace][id][module][name]) {
       delete global[namespace][id][module][name];
     }
-    core.factory(options)(createOptions.constructor);
+    core.factory(options)(createOptions.constructor, undefined, undefined, args, opts);
   },
   isVisible: function(element, visible) {
     // fix caching bug with jsdom and css() by calling _clearMemoizedQueries();
