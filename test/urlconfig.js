@@ -34,5 +34,11 @@ describe('urlconfig', function() {
     test.createCore('urlconfig');
     expect(urlconfig+'').toEqual('{\"view\":\"audioVideo\",\"enableMessages\":false,\"audioOnlyView\":false}');
   });
+  it('parse', function() {
+    test.createCore('urlconfig');
+    urlconfig.parse('{\"view\":\"audioOnly\",\"enableMessages\":true}')
+    expect(urlconfig.view).toEqual('audioOnly');
+    expect(urlconfig.enableMessages).toEqual(true);
+  });
 
 });
