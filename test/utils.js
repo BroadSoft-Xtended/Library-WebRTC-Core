@@ -33,6 +33,12 @@ describe('utils', function() {
     expect(core.utils.addUrlParams(url, params)).toEqual(url+'&b=2&c=3');
   })
 
+  it('addUrlParams with encoded param', function() {
+    var url = 'http://test.com?a=1';
+    var params = {b: 2, c: 'http://test.com?param1=test1'}
+    expect(core.utils.addUrlParams(url, params)).toEqual(url+'&b=2&c=http%3A%2F%2Ftest.com%3Fparam1%3Dtest1');
+  })
+
   it('addUrlParams with array', function() {
     var url = 'http://test.com';
     var params = {arr: ['A', 'B', 'C']}
