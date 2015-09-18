@@ -1,7 +1,8 @@
 module.exports = {
 	debug: {
 		names: '*',
-		level: 'debug'
+		level: 'debug',
+		usedate: false
 	},
 	urlconfig: {
 		view: 'audioVideo'
