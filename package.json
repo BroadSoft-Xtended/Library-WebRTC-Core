@@ -18,6 +18,7 @@
     "bdsft-sdk-model": "BroadSoft-Xtended/Library-SDK-Model.git",
     "bdsft-sdk-styles": "BroadSoft-Xtended/Library-SDK-Styles.git",
     "bdsft-sdk-loader": "BroadSoft-Xtended/Library-SDK-Loader.git",
+    "bdsft-sdk-debug": "BroadSoft-Xtended/Library-SDK-Debug.git",
     "debug": "2.1.1",
     "deep-extend": "0.4.0",
     "ejs": "1.0.0",
