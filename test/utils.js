@@ -1,4 +1,4 @@
-require('./includes/common');
+var test = require('bdsft-sdk-test').model;
 describe('utils', function() {
 
   before(function() {

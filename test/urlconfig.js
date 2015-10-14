@@ -1,41 +1,47 @@
-var test = require('./includes/common');
+test = require('bdsft-sdk-test').model;
 describe('urlconfig', function() {
 
+  var create = function(){
+    test.createModelAndView('core', {
+      core: require('../')
+    }, 'urlconfig');
+  }
+
   it('hd=true', function() {
-  	location.search = '?hd=true'
-    test.createCore('urlconfig');
+    location.search = '?hd=true'
+    create();
     expect(urlconfig.hd).toEqual(true);
   });
 
   it('features url parameter', function() {
     location.search = '?features=1';
-    test.createCore('urlconfig');
+    create();
     expect(urlconfig.getFeatures()).toEqual(1);
     location.search = '';
   });
   it('with view url param', function() {
     location.search = '?view=audioOnly';
-    test.createCore('urlconfig');
+    create();
     expect(urlconfig.audioOnlyView).toEqual(true);
   });
   it('view change', function() {
     location.search = '?view=audioVideo';
-    test.createCore('urlconfig');
+    create();
     expect(urlconfig.audioOnlyView).toEqual(false);
     urlconfig.setViewAudio();
     expect(urlconfig.audioOnlyView).toEqual(true);
   });
   it('enableMessages=false', function() {
     location.search = '?enableMessages=false';
-    test.createCore('urlconfig');
+    create();
     expect(urlconfig.enableMessages).toEqual(false);
   });
   it('toString', function() {
-    test.createCore('urlconfig');
+    create();
     expect(urlconfig+'').toEqual('{\"view\":\"audioVideo\",\"enableMessages\":false,\"audioOnlyView\":false}');
   });
   it('parse', function() {
-    test.createCore('urlconfig');
+    create();
     urlconfig.parse('{\"view\":\"audioOnly\",\"enableMessages\":true}')
     expect(urlconfig.view).toEqual('audioOnly');
     expect(urlconfig.enableMessages).toEqual(true);
