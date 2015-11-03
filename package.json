@@ -11,15 +11,10 @@
     "url": "ssh://git@github.com:BroadSoft-Xtended/Library-WebRTC-Core.git"
   },
   "dependencies": {
-    "bdsft-sdk-factory": "BroadSoft-Xtended/Library-SDK-Factory.git",
     "bdsft-sdk-utils": "BroadSoft-Xtended/Library-SDK-Utils.git",
-    "bdsft-sdk-core": "BroadSoft-Xtended/Library-SDK-Core.git",
-    "bdsft-sdk-view": "BroadSoft-Xtended/Library-SDK-View.git",
     "bdsft-sdk-model": "BroadSoft-Xtended/Library-SDK-Model.git",
     "bdsft-sdk-styles": "BroadSoft-Xtended/Library-SDK-Styles.git",
     "bdsft-sdk-loader": "BroadSoft-Xtended/Library-SDK-Loader.git",
-    "bdsft-sdk-debug": "BroadSoft-Xtended/Library-SDK-Debug.git",
-    "bdsft-sdk-eventbus": "BroadSoft-Xtended/Library-SDK-Eventbus.git",
     "debug": "2.1.1",
     "deep-extend": "0.4.0",
     "ejs": "1.0.0",
