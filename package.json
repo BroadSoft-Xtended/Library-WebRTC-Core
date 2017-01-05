@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com:BroadSoft-Xtended/Library-WebRTC-Core.git"
+    "url": "ssh://git@github.com:BroadSoft-Xtended/Library-WebRTC-Core"
   },
   "dependencies": {
-    "bdsft-sdk-utils": "BroadSoft-Xtended/Library-SDK-Utils.git",
-    "bdsft-sdk-model": "BroadSoft-Xtended/Library-SDK-Model.git",
-    "bdsft-sdk-styles": "BroadSoft-Xtended/Library-SDK-Styles.git",
-    "bdsft-sdk-loader": "BroadSoft-Xtended/Library-SDK-Loader.git",
+    "bdsft-sdk-utils": "BroadSoft-Xtended/Library-SDK-Utils",
+    "bdsft-sdk-model": "BroadSoft-Xtended/Library-SDK-Model",
+    "bdsft-sdk-styles": "BroadSoft-Xtended/Library-SDK-Styles",
+    "bdsft-sdk-loader": "BroadSoft-Xtended/Library-SDK-Loader",
     "debug": "2.1.1",
     "deep-extend": "0.4.0",
     "ejs": "1.0.0",
@@ -25,7 +25,7 @@
     "observe-js": "^0.4.2"
   },
   "devDependencies": {
-    "bdsft-sdk-test": "BroadSoft-Xtended/Library-SDK-Test.git",
+    "bdsft-sdk-test": "BroadSoft-Xtended/Library-SDK-Test",
     "mocha-bamboo-reporter": "1.0.6"
   },
   "author": "",
